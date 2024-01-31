@@ -1,3 +1,4 @@
+// & - lvalue, && - rvalue
 #include "s21_matrix.hpp"
 
 S21Matrix::S21Matrix() : rows_(0), cols_(0), matrix_(nullptr){};
