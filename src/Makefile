@@ -1,80 +1,41 @@
-CHECK =  $(shell pkg-config --libs --cflags check)
-#$(shell pkg-config --libs --cflags check) - позволяет получить путь к библиотеке check.h и её заголовочному файлу,  а также её имя 
-CFLAGS = -Wall -Werror -Wextra -std=c++17 -g 
-SRCS = $(wildcard *.cpp)
-EXCLUDE = matrix_tests.cpp main.cpp new_test.cpp
-SOURCES = $(filter-out $(EXCLUDE), $(SRCS))
-OBJECTS = $(SOURCES:.c=.o)
-TESTS = new_test.o 
-S21LIB = s21_matrix_oop.a
-
-# пишет название текущей 
-ОС
-UNAME = $(shell uname -s)
-FLAGS = -lcheck
-
-#если ОС - Linux
-ifeq ($(UNAME), Linux)
-	FLAGS +=  -lm -lsubunit
-  	OPEN=xdg-open
-#если ОС - Darvin
-else
-	FLAGS += -fprofile-arcs -ftest-coverage
- 	OPEN=open
-endif
+# CXX https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html
+G =g++ -std=c++17
+GCC =$(G) -Wall -Wextra -Werror -fsanitize=address  
+LIBS =-lgtest -lpthread
 
 all: test
 
-# $^ -  всё что идет после цели 
-# $< - то что идет сразу после цели 
-test: $(TESTS) $(S21LIB)
-# связывание тестов с библиотекой
-	gcc  $^ -o test $(CFLAGS) $(CHECK) $(FLAGS)  
-	rm -rf *.o 
-	./test
-# $@ -  название цели 
-$(TESTS): $(TESTS:.o=.c)
-	gcc $(CFLAGS) -c $^  -o $@  $(CHECK)
-
-
-mytest: 
-	gcc $(CFLAGS) -o  matrix $(SOURCES) main.cpp -lm
-
-
-#создание стат. библиотеки	
-$(S21LIB): $(OBJECTS)
-	gcc $(CFLAGS) -c $(SOURCES) 
-# Опция c заставляет создавать (от create) библиотеку, если ее нет,
-# а опция r (от replace) заменяет старые объектные файлы новыми версиями.
-	ar rc $@ $^
-#Пока у нас есть лишь архивный файл libfs.a. 
-#Чтобы из него сделать полноценную библиотеку объектных файлов надо добавить к этому архиву
-# индекс символов, т.е. список вложенных в библиотеку функций и переменных, 
-#чтобы линковка происходила быстрее	
-	ranlib $@
-
-style:
-	clang-format -n -style=Google *.c *.h
-	clang-format -i -style=Google *.c *.h
-
-cppcheck:
-	cppcheck --enable=all --suppress=missingIncludeSystem *.c *.h	
-
-rebuild: clean all
-#очищение предыдущих результатов тестов
-gcov_report: clean $(TESTS)
-#переделать
-	gcc -o test $(FLAGS) --coverage $(TESTS) $(SOURCES)
-	./test
-#Сбор информации о покрытии кода
-#-c указывает, что lcov должен использовать существующие данные о coverage
-#-d <путь> устанавливает каталог, в котором надо искать данные о coverage, и мы передаём текущий каталог “.”
-	lcov -t "a.out" -o test.info -c -d .
-	genhtml -o report test.info
-	open ./report/index.html
-	rm -rf test *.o *.a *gcda *gcno *info
-
 clean:
-	rm -rf test *.o *.a *.gch *.gcda report *.gcno *.info
+	rm -rf *.o *.a *.so *.gcda *.gcno *.gch rep.info *.html *.css test report *.txt *.dSYM
 
-.PHONY: all, test, style, rebuild, gcov_report, clean
+test: clean s21_matrix_oop.a
+	$(GCC) s21_matrix_oop.a tests.cpp -o test $(LIBS) 
+	./test --gtest_repeat=10 --gtest_break_on_failure --gtest_filter=* --gtest_color=yes --gtest_shuffle
+	@make leak
+	@make clang
+
+s21_matrix_oop.a:
+	$(G) -c s21_*.cpp
+	ar rc s21_matrix_oop.a s21_*.o
+	ranlib s21_matrix_oop.a
+	# rm *.o
+
+gcov_report: clean
+	$(GCC) --coverage tests.cpp s21_*.cpp -o test $(LIBS)
+	chmod +x *
+	./test
+	lcov --ignore-errors mismatch -t "test" -o test.info --no-external -c -d .
+	genhtml -o report/ test.info
+	open ./report/index.html
+
+leak:
+	@echo --------------------MEMORY_LEAKS-----------------------
+	@$(GCC) tests.cpp s21_*.cpp -lgtest -o leaks -g
+	CK_FORK=no leaks --atExit -- ./leaks
+	@rm ./leaks
+
+clang:
+	@echo -------------------CLANG_FORMAT------------------------
+	clang-format -n s21_*.cpp s21_*.h tests.cpp
+cppcheck:
+	cppcheck --enable=all --suppress=missingIncludeSystem . *.cpp

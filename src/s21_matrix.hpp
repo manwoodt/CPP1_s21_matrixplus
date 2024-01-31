@@ -10,10 +10,13 @@ private:
 public:
     S21Matrix();
     S21Matrix(int rows, int cols);
-    S21Matrix(const S21Matrix &other);
-    S21Matrix(S21Matrix &&other) noexcept;
+   // S21Matrix(const S21Matrix &other);
+   // S21Matrix(S21Matrix &&other) ;
     ~S21Matrix();
-
+    
+    int GetCols() const ;
+    int GetRows() const;
+/*
     void SumMatrix(const S21Matrix &other);
     bool EqMatrix(const S21Matrix &other);
     void SumMatrix(const S21Matrix &other);
@@ -30,6 +33,7 @@ public:
     S21Matrix operator+(const S21Matrix &other) const;
     S21Matrix &operator-=(const S21Matrix &other);
     S21Matrix operator-(const S21Matrix &other) const;
-}
+    */
+};
 
 #endif // SRC_S21_MATRIX_H_
