@@ -3,7 +3,7 @@ G =g++ -std=c++17
 GCC =$(G) -Wall -Wextra -Werror -fsanitize=address  
 LIBS =-lgtest -lpthread
 
-all: test
+all: test clean
 
 clean:
 	rm -rf *.o *.a *.so *.gcda *.gcno *.gch rep.info *.html *.css test report *.txt *.dSYM
@@ -19,6 +19,12 @@ s21_matrix_oop.a:
 	ar rc s21_matrix_oop.a s21_*.o
 	ranlib s21_matrix_oop.a
 	# rm *.o
+
+mytest: 
+	@echo --------------------Mytest-----------------------
+	@$(GCC) -o  matrix s21_*.cpp main.cpp -lm
+	@./matrix
+	@rm matrix
 
 gcov_report: clean
 	$(GCC) --coverage tests.cpp s21_*.cpp -o test $(LIBS)
