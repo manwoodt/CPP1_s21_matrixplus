@@ -4,50 +4,70 @@ int S21Matrix::GetRows() const { return rows_; }
 
 int S21Matrix::GetCols() const { return cols_; }
 
-bool S21Matrix::EqMatrix(const S21Matrix &other) {
-  bool eq = true;
-  if
-    for (int i = 0; i < rows_; i++) {
-      for (int j = 0; j < cols_; j++) {
-        if (fabs(matrix_[i][j] - other.matrix_[i][j]) > 1.e-7) {
-          eq = false;
-        }
-      }
-    }
-  return eq;
-}
-
+int S21Matrix::GetSize() const { return rows_ * cols_; }
+/*
 double &S21Matrix::operator()(int row, int col) {
-  if (row >= rows_ || col >= cols_) {
+  return matrix_[row * cols_ + col];
+}
+*/
+double &S21Matrix::operator()(int row, int col) {
+  if (row >= rows_ || col >= cols_ || row < 0 || col < 0)
     throw std::out_of_range("Incorrect input, index is out of range");
-  }
+
   return matrix_[row * cols_ + col];
 }
 
-/*
+double &S21Matrix::operator()(int row, int col) const {
+  if (row >= rows_ || col >= cols_ || row < 0 || col < 0)
+    throw std::out_of_range("Incorrect input, index is out of range");
 
-int s21_eq_matrix(matrix_t *A, matrix_t *B) {
-  int res = FAILURE;
-  if (check_matrix(A) && check_matrix(B)) {
-    if (A->columns == B->columns && A->rows == B->rows) {
-      res = SUCCESS;
-      eq_value(A, B, &res);
-    }
-  }
-  return res;
+  return matrix_[row * cols_ + col];
 }
 
-int S21Matrix::GetRows() const { return rows_; }
+bool S21Matrix::EqMatrix(const S21Matrix &other) {
+  if (rows_ != other.rows_ || cols_ != other.cols_) return false;
 
-int S21Matrix::GetCols() const { return cols_; }
+  for (int i = 0; i < rows_; i++) {
+    if (fabs(matrix_[i] - other.matrix_[i]) > 1.e-7) {
+      return false;
+    }
+  }
+  return true;
+}
 
-void eq_value(matrix_t *A, matrix_t *B, int *res) {
-  for (int i = 0; i < A->rows; i++) {
-    for (int j = 0; j < A->columns; j++) {
-      if (fabs(A->matrix[i][j] - B->matrix[i][j]) > 1.e-7) {
-        *res = FAILURE;
+void S21Matrix::SumMatrix(const S21Matrix &other) {
+  if (rows_ != other.rows_ || cols_ != other.cols_)
+    throw std::out_of_range("The dimensions of the matrix are not equal");
+  for (int i; i < GetSize(); i++) {
+    matrix_[i] += other.matrix_[i];
+  }
+}
+
+void S21Matrix::SubMatrix(const S21Matrix &other) {
+  if (rows_ != other.rows_ || cols_ != other.cols_)
+    throw std::out_of_range("The dimensions of the matrix are not equal");
+  for (int i; i < GetSize(); i++) {
+    matrix_[i] -= other.matrix_[i];
+  }
+}
+
+void S21Matrix::MulNumber(const double num) {
+  for (int i; i < GetSize(); i++) {
+    matrix_[i] *= num;
+  }
+}
+
+void S21Matrix::MulMatrix(const S21Matrix &other) {
+  if (rows_ != other.cols_ || cols_ != other.rows_)
+    throw std::out_of_range(
+        "The dimensions of the matrix are not for multiplication");
+  S21Matrix result(rows_, other.cols_);
+  for (int i = 0; i < rows_; i++) {
+    for (int j = 0; j < other.cols_; j++) {
+      for (int k = 0; k < cols_; k++) {
+        result(i, j) += (*this)(i, k) * other(k, j);
       }
     }
   }
+  *this = std::move(result);
 }
-*/

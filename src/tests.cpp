@@ -15,7 +15,7 @@ TEST(Constructor, By2Args) {
   EXPECT_EQ(test.GetRows(), 3);
   EXPECT_EQ(test.GetCols(), 3);
 }
-/*/
+
 TEST(Constructor, Copy) {
   auto test = S21Matrix(3, 3);
   test(0, 0) = 1;
@@ -30,7 +30,6 @@ TEST(Constructor, Move) {
   auto test3 = S21Matrix(std::move(test1));
   EXPECT_EQ(test2, test3);
 }
-*/
 /*
 TEST(Matesha, EqMatrix) {
   auto test1 = S21Matrix(3, 3);
@@ -45,7 +44,7 @@ TEST(Matesha, EqMatrix) {
   EXPECT_FALSE(test1.EqMatrix(test3));
   EXPECT_TRUE(test1.EqMatrix(test3) == (test1 == test3));
 }
-
+*/
 TEST(Matesha, SumMatrix) {
   auto test1 = S21Matrix(1, 1);
   test1(0, 0) = 1;
@@ -53,7 +52,7 @@ TEST(Matesha, SumMatrix) {
   test1.SumMatrix(test2);
   EXPECT_EQ(test1(0, 0), 2);
 }
-
+/*
 TEST(Matesha, SubMatrix) {
   auto test1 = S21Matrix(1, 1);
   test1(0, 0) = 1;

@@ -3,7 +3,8 @@
 
 #include <math.h>
 
-#include <cstring>  // memcpy
+#include <cstring>   // memcpy
+#include <iostream>  // cout
 #include <stdexcept>
 #include <utility>  // swap
 
@@ -22,13 +23,18 @@ class S21Matrix {
   S21Matrix &operator=(S21Matrix &&other) noexcept;
   int GetCols() const;
   int GetRows() const;
+  int GetSize() const;
+  void PrintMatrix() const;
 
   bool EqMatrix(const S21Matrix &other);
   double &operator()(int row, int col);
+  double &operator()(int row, int col) const;
+  void SumMatrix(const S21Matrix &other);
+  void SubMatrix(const S21Matrix &other);
+  void MulNumber(const double num);
+  void MulMatrix(const S21Matrix &other);
   /*
-      void SumMatrix(const S21Matrix &other);
 
-      void SumMatrix(const S21Matrix &other);
       void SubMatrix(const S21Matrix &other);
       void MulNumber(const double num);
       void MulMatrix(const S21Matrix &other);
