@@ -26,28 +26,41 @@ class S21Matrix {
   int GetSize() const;
   void PrintMatrix() const;
 
-  bool EqMatrix(const S21Matrix &other);
-  double &operator()(int row, int col);
-  double &operator()(int row, int col) const;
+  bool EqMatrix(const S21Matrix &other) const;
   void SumMatrix(const S21Matrix &other);
   void SubMatrix(const S21Matrix &other);
   void MulNumber(const double num);
   void MulMatrix(const S21Matrix &other);
-  /*
 
-      void SubMatrix(const S21Matrix &other);
-      void MulNumber(const double num);
-      void MulMatrix(const S21Matrix &other);
+  double &operator()(int row, int col);
+  double &operator()(int row, int col) const;
+  S21Matrix operator+(const S21Matrix &other) const;
+  S21Matrix operator-(const S21Matrix &other) const;
+  S21Matrix operator*(const S21Matrix &other) const;
+  S21Matrix operator*(const double num) const;
+  S21Matrix &operator+=(const S21Matrix &other);
+  S21Matrix &operator-=(const S21Matrix &other);
+  S21Matrix &operator*=(const S21Matrix &other);
+  S21Matrix &operator*=(const double num);
+  bool operator==(const S21Matrix &other) const;
+  S21Matrix &operator=(const S21Matrix &other);
+  /*
 
       S21Matrix Transpose();
       S21Matrix CalcComplements();
       double Determinant();
       S21Matrix InverseMatrix();
 
-      S21Matrix &operator+=(const S21Matrix &other);
-      S21Matrix operator+(const S21Matrix &other) const;
-      S21Matrix &operator-=(const S21Matrix &other);
-      S21Matrix operator-(const S21Matrix &other) const;
+  bool operator==(const S21Matrix& other) const;
+  S21Matrix operator+(const S21Matrix& other) const;
+  S21Matrix& operator+=(const S21Matrix& other);
+  S21Matrix operator-(const S21Matrix& other) const;
+  S21Matrix& operator-=(const S21Matrix& other);
+  S21Matrix operator*(double number) const noexcept;
+  friend S21Matrix operator*(double number, const S21Matrix& matrix) noexcept;
+  S21Matrix& operator*=(double number);
+  S21Matrix operator*(const S21Matrix& other) const;
+  S21Matrix& operator*=(const S21Matrix& other);
       */
 };
 

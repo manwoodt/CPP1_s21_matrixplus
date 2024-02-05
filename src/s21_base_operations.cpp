@@ -5,26 +5,8 @@ int S21Matrix::GetRows() const { return rows_; }
 int S21Matrix::GetCols() const { return cols_; }
 
 int S21Matrix::GetSize() const { return rows_ * cols_; }
-/*
-double &S21Matrix::operator()(int row, int col) {
-  return matrix_[row * cols_ + col];
-}
-*/
-double &S21Matrix::operator()(int row, int col) {
-  if (row >= rows_ || col >= cols_ || row < 0 || col < 0)
-    throw std::out_of_range("Incorrect input, index is out of range");
 
-  return matrix_[row * cols_ + col];
-}
-
-double &S21Matrix::operator()(int row, int col) const {
-  if (row >= rows_ || col >= cols_ || row < 0 || col < 0)
-    throw std::out_of_range("Incorrect input, index is out of range");
-
-  return matrix_[row * cols_ + col];
-}
-
-bool S21Matrix::EqMatrix(const S21Matrix &other) {
+bool S21Matrix::EqMatrix(const S21Matrix &other) const {
   if (rows_ != other.rows_ || cols_ != other.cols_) return false;
 
   for (int i = 0; i < rows_; i++) {
