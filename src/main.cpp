@@ -17,11 +17,35 @@ int main() {
   B(1, 1) = 3;
   B(1, 2) = 4;
   A.PrintMatrix();
-  B.PrintMatrix();
-  A.MulMatrix(B);
-  A.PrintMatrix();
+  S21Matrix transposed = A.Transpose();
+  transposed.PrintMatrix();
+  // B.PrintMatrix();
+  // B.Transpose();
+  // B.PrintMatrix();
   return 0;
 }
+
+/*
+  S21Matrix A(3, 2);
+  S21Matrix B(2, 3);
+  A(0, 0) = 1;
+  A(0, 1) = 4;
+  A(1, 0) = 2;
+  A(1, 1) = 5;
+  A(2, 0) = 3;
+  A(2, 1) = 6;
+  B(0, 0) = 1;
+  B(0, 1) = -1;
+  B(0, 2) = 1;
+  B(1, 0) = 2;
+  B(1, 1) = 3;
+  B(1, 2) = 4;
+  A.PrintMatrix();
+  A.Transpose();
+  A.PrintMatrix();
+  B.PrintMatrix();
+  B.Transpose();
+  B.PrintMatrix();*/
 
 /*
 

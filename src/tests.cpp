@@ -30,7 +30,7 @@ TEST(Constructor, Move) {
   auto test3 = S21Matrix(std::move(test1));
   EXPECT_EQ(test2, test3);
 }
-/*
+
 TEST(Matesha, EqMatrix) {
   auto test1 = S21Matrix(3, 3);
   test1(1, 2) = 5;
@@ -44,7 +44,7 @@ TEST(Matesha, EqMatrix) {
   EXPECT_FALSE(test1.EqMatrix(test3));
   EXPECT_TRUE(test1.EqMatrix(test3) == (test1 == test3));
 }
-*/
+
 TEST(Matesha, SumMatrix) {
   auto test1 = S21Matrix(1, 1);
   test1(0, 0) = 1;
@@ -52,7 +52,7 @@ TEST(Matesha, SumMatrix) {
   test1.SumMatrix(test2);
   EXPECT_EQ(test1(0, 0), 2);
 }
-/*
+
 TEST(Matesha, SubMatrix) {
   auto test1 = S21Matrix(1, 1);
   test1(0, 0) = 1;
@@ -109,7 +109,7 @@ TEST(MatrixMagic, Transpose) {
   test2(2, 2) = 9;
   EXPECT_EQ(test1, test2);
 }
-
+/*
 TEST(MatrixMagic, CalcComplements) {
   auto test1 = S21Matrix(3, 3);
   test1(0, 0) = 1;

@@ -22,7 +22,7 @@ s21_matrix_oop.a:
 
 mytest: 
 	@echo --------------------Mytest-----------------------
-	@$(GCC) -o  matrix s21_*.cpp main.cpp -lm
+	$(GCC) -std=c++17 -o  matrix s21_*.cpp main.cpp -lm
 	@./matrix
 	@rm matrix
 
