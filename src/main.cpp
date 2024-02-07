@@ -2,23 +2,20 @@
 
 #include "s21_matrix.hpp"
 int main() {
-  S21Matrix A(3, 2);
-  S21Matrix B(2, 3);
+  S21Matrix A(3, 3);
+  S21Matrix B(3, 3);
   A(0, 0) = 1;
-  A(0, 1) = 4;
-  A(1, 0) = 2;
-  A(1, 1) = 5;
-  A(2, 0) = 3;
-  A(2, 1) = 6;
-  B(0, 0) = 1;
-  B(0, 1) = -1;
-  B(0, 2) = 1;
-  B(1, 0) = 2;
-  B(1, 1) = 3;
-  B(1, 2) = 4;
+  A(0, 1) = 2;
+  A(0, 2) = 3;
+  A(1, 0) = 0;
+  A(1, 1) = 4;
+  A(1, 2) = 2;
+  A(2, 0) = 5;
+  A(2, 1) = 2;
+  A(2, 2) = 1;
   A.PrintMatrix();
-  S21Matrix transposed = A.Transpose();
-  transposed.PrintMatrix();
+  B = A.CalcComplements();
+  A.PrintMatrix();
   // B.PrintMatrix();
   // B.Transpose();
   // B.PrintMatrix();

@@ -48,15 +48,10 @@ class S21Matrix {
 
   S21Matrix Transpose() const;
 
-  S21Matrix find_minor(int row, int col);
-  double Determinant();
-  /*
-
-      S21Matrix Transpose();
-      S21Matrix CalcComplements();
-      double Determinant();
-      S21Matrix InverseMatrix();
-      */
+  S21Matrix Find_minor(int row, int col) const;
+  double Determinant() const;
+  S21Matrix CalcComplements() const;
+  S21Matrix InverseMatrix() const;
 };
 
 #endif  // SRC_S21_MATRIX_H_

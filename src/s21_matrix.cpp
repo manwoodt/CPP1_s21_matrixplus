@@ -10,7 +10,7 @@ S21Matrix S21Matrix::Transpose() const {
   return result;
 }
 
-S21Matrix S21Matrix::find_minor(int row, int col) {
+S21Matrix S21Matrix::Find_minor(int row, int col) const {
   if (rows_ != cols_) {
     throw std::logic_error(
         "Minor matrix could be computed only for square matrices");
@@ -36,20 +36,58 @@ S21Matrix S21Matrix::find_minor(int row, int col) {
   return Minor;
 }
 
-double S21Matrix::Determinant() {
+double S21Matrix::Determinant() const {
   if (rows_ != cols_) {
     throw std::logic_error("Matrix is not square, determinant is unavailable");
   }
 
   if (rows_ == 1) return matrix_[0];
-
+  if (rows_ == 2) return matrix_[0] * matrix_[4] - matrix_[1] * matrix_[3];
   double det = 0;
   int sign = 1;
 
   for (int j = 0; j < cols_; j++) {
-    S21Matrix Minor = find_minor(0, j);
+    S21Matrix Minor = Find_minor(0, j);
     det += sign * (*this)(0, j) * Minor.Determinant();
     sign *= -1;
   }
   return det;
+}
+
+S21Matrix S21Matrix::CalcComplements() const {
+  if (rows_ != cols_) {
+    throw std::logic_error(
+        "Matrix is not square, CalcComplements is unavailable");
+  }
+  S21Matrix result(rows_, cols_);
+  double det = 0.;
+  for (int i = 0; i < rows_; ++i) {
+    for (int j = 0; j < cols_; ++j) {
+      S21Matrix Minor = Find_minor(0, j);
+      det = Minor.Determinant();
+      result(i, j) = det * pow(-1, (i + j));
+    }
+  }
+  return result;
+}
+
+S21Matrix S21Matrix::InverseMatrix() const {
+  if (rows_ != cols_) throw std::invalid_argument("Matrix is not square");
+  double determinant = Determinant();
+  if (determinant == 0)
+    throw std::invalid_argument(
+        "Determinant is zero, InverseMatrix is unavailable");
+
+  // Получаем транспонированную матрицу алгебраических дополнений
+  S21Matrix adjoint(rows_, cols_);
+  adjoint = CalcComplements();
+  adjoint = adjoint.Transpose();
+
+  S21Matrix result(rows_, cols_);
+  for (int i = 0; i < rows_; i++) {
+    for (int j = 0; j < cols_; j++) {
+      result(i, j) = (1 / determinant) * adjoint(i, j);
+    }
+  }
+  return result;
 }
