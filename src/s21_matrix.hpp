@@ -25,6 +25,8 @@ class S21Matrix {
 
   int GetCols() const;
   int GetRows() const;
+  void SetCols(const int new_cols);
+  void SetRows(const int new_rows);
   int GetSize() const;
   void PrintMatrix() const;
 

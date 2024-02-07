@@ -4,6 +4,30 @@ int S21Matrix::GetRows() const { return rows_; }
 
 int S21Matrix::GetCols() const { return cols_; }
 
+void S21Matrix::SetRows(const int new_rows) {
+  if (new_rows <= 0) throw std::length_error("New rows are not suitable");
+  if (new_rows != rows_) {
+    S21Matrix tmp(new_rows, cols_);
+    for (int i = 0; i < (rows_ < new_rows ? rows_ : new_rows); ++i) {
+      for (int j = 0; j < cols_; ++j) {
+        tmp(i, j) = (*this)(i, j);
+      }
+    }
+    *this = std::move(tmp);
+  }
+}
+
+void S21Matrix::SetCols(const int new_cols) {
+  if (new_cols <= 0) throw std::length_error("New cols are not suitable");
+
+  S21Matrix tmp(rows_, new_cols);
+  for (int i = 0; i < rows_; ++i)
+    for (int j = 0; j < (cols_ < new_cols ? cols_ : new_cols); ++j)
+      tmp(i, j) = (*this)(i, j);
+
+  *this = std::move(tmp);
+}
+
 int S21Matrix::GetSize() const { return rows_ * cols_; }
 
 bool S21Matrix::EqMatrix(const S21Matrix &other) const {
