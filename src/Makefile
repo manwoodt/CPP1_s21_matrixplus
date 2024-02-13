@@ -1,7 +1,7 @@
 # CXX https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html
 G =g++ -std=c++17
 GCC =$(G) -Wall -Wextra -Werror -fsanitize=address  
-LIBS =-lgtest -lpthread
+LIBS =-lgtest -lpthread -L/home/manwoodt/School21/c++/new/CPP1_s21_matrixplus-1/src  /home/manwoodt/School21/c++/new/CPP1_s21_matrixplus-1/src/s21_matrix_oop.a
 
 all: test clean
 
@@ -9,7 +9,7 @@ clean:
 	rm -rf *.o *.a *.so *.gcda *.gcno *.gch rep.info *.html *.css test report *.txt *.dSYM
 
 test: clean s21_matrix_oop.a
-	$(GCC) s21_matrix_oop.a tests.cpp -o test $(LIBS) 
+	$(GCC) s21_matrix_oop.a tests.cpp $(LIBS) -o test 
 	./test --gtest_repeat=10 --gtest_break_on_failure --gtest_filter=* --gtest_color=yes --gtest_shuffle
 	@make leak
 	@make clang
