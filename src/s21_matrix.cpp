@@ -42,7 +42,7 @@ double S21Matrix::Determinant() const {
   }
 
   if (rows_ == 1) return matrix_[0];
-  if (rows_ == 2) return matrix_[0] * matrix_[4] - matrix_[1] * matrix_[3];
+  // if (rows_ == 2) return matrix_[0] * matrix_[4] - matrix_[1] * matrix_[3];
   double det = 0;
   int sign = 1;
 

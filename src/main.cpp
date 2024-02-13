@@ -2,6 +2,36 @@
 
 #include "s21_matrix.hpp"
 int main() {
+  S21Matrix test10(3, 3);
+  S21Matrix test1(3, 3);
+  test1(0, 0) = 1;
+  test1(0, 1) = 2;
+  test1(0, 2) = 3;
+  test1(1, 0) = 4;
+  test1(1, 1) = 5;
+  test1(1, 2) = 6;
+  test1(2, 0) = 7;
+  test1(2, 1) = 8;
+  test1(2, 2) = 9;
+  test10(0, 0) = 1;
+  test10(0, 1) = 2;
+  test10(0, 2) = 3;
+  test10(1, 0) = 4;
+  test10(1, 1) = 5;
+  test10(1, 2) = 6;
+  test10(2, 0) = 7;
+  test10(2, 1) = 8;
+  test10(2, 2) = 9;
+
+  test1 *= test10;
+
+  /*
+  std::cout << "res1 " << test1.EqMatrix(test2);
+  test2(1, 1) = 1;
+  std::cout << "res2 " << test1.EqMatrix(test2);
+  */
+  //  ошибка
+  /*
   S21Matrix A(3, 3);
   S21Matrix B(3, 3);
   A(0, 0) = 1;
@@ -14,37 +44,34 @@ int main() {
   A(2, 1) = 2;
   A(2, 2) = 1;
   A.PrintMatrix();
-  B = A.CalcComplements();
-  A.PrintMatrix();
-  // B.PrintMatrix();
+  double a = A.Determinant();
+  std::cout << "res" << a;
+  B.PrintMatrix();
+  */
+
+  test1.PrintMatrix();
+  // test2.PrintMatrix();
   // B.Transpose();
   // B.PrintMatrix();
   return 0;
 }
 
 /*
-  S21Matrix A(3, 2);
-  S21Matrix B(2, 3);
-  A(0, 0) = 1;
-  A(0, 1) = 4;
-  A(1, 0) = 2;
-  A(1, 1) = 5;
-  A(2, 0) = 3;
-  A(2, 1) = 6;
-  B(0, 0) = 1;
-  B(0, 1) = -1;
-  B(0, 2) = 1;
-  B(1, 0) = 2;
-  B(1, 1) = 3;
-  B(1, 2) = 4;
-  A.PrintMatrix();
-  A.Transpose();
-  A.PrintMatrix();
-  B.PrintMatrix();
-  B.Transpose();
-  B.PrintMatrix();*/
+  auto test1 = S21Matrix(3, 3);
+  test1(1, 2) = 5;
+  auto test2 = test1;
 
-/*
+  EXPECT_TRUE(test1.EqMatrix(test2));
+  EXPECT_TRUE(test1.EqMatrix(test2) == (test1 == test2));
+  test2(1, 1) = 1;
+  //  ошибка
+  EXPECT_FALSE(test1.EqMatrix(test2));
+  EXPECT_TRUE(test1.EqMatrix(test2) == (test1 == test2));
+  auto test3 = S21Matrix(5, 5);
+  EXPECT_FALSE(test1.EqMatrix(test3));
+  EXPECT_TRUE(test1.EqMatrix(test3) == (test1 == test3));
+
+
 
 
     S21Matrix A(3, 3);
