@@ -59,11 +59,12 @@ S21Matrix S21Matrix::CalcComplements() const {
     throw std::logic_error(
         "Matrix is not square, CalcComplements is unavailable");
   }
+
   S21Matrix result(rows_, cols_);
   double det = 0.;
   for (int i = 0; i < rows_; ++i) {
     for (int j = 0; j < cols_; ++j) {
-      S21Matrix Minor = Find_minor(0, j);
+      S21Matrix Minor = Find_minor(i, j);
       det = Minor.Determinant();
       result(i, j) = det * pow(-1, (i + j));
     }

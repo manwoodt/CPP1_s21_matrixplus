@@ -93,40 +93,41 @@ TEST(Calculation, Find_minor) {
 // ошибка
 
 TEST(Calculation, MulMatrix) {
-  auto test1 = S21Matrix(3, 3);
-  auto test10 = S21Matrix(3, 3);
-  test1(0, 0) = 1;
-  test1(0, 1) = 2;
-  test1(0, 2) = 3;
-  test1(1, 0) = 4;
-  test1(1, 1) = 5;
-  test1(1, 2) = 6;
-  test1(2, 0) = 7;
-  test1(2, 1) = 8;
-  test1(2, 2) = 9;
-  test10(0, 0) = 1;
-  test10(0, 1) = 2;
-  test10(0, 2) = 3;
-  test10(1, 0) = 4;
-  test10(1, 1) = 5;
-  test10(1, 2) = 6;
-  test10(2, 0) = 7;
-  test10(2, 1) = 8;
-  test10(2, 2) = 9;
+  S21Matrix matrix1{2, 2};
+  EXPECT_EQ(matrix1.GetRows(), 2);
+  EXPECT_EQ(matrix1.GetCols(), 2);
 
-  test1.MulMatrix(test10);
-  auto test2 = S21Matrix(3, 3);
-  test2(0, 0) = 30;
-  test2(0, 1) = 36;
-  test2(0, 2) = 42;
-  test2(1, 0) = 66;
-  test2(1, 1) = 81;
-  test2(1, 2) = 96;
-  test2(2, 0) = 102;
-  test2(2, 1) = 126;
-  test2(2, 2) = 150;
+  S21Matrix matrix2{2, 2};
+  EXPECT_EQ(matrix2.GetRows(), 2);
+  EXPECT_EQ(matrix2.GetCols(), 2);
 
-  EXPECT_EQ(test1, test2);
+  S21Matrix check_matrix{2, 2};
+  EXPECT_EQ(check_matrix.GetRows(), 2);
+  EXPECT_EQ(check_matrix.GetCols(), 2);
+
+  matrix1(0, 0) = 1;
+  matrix1(0, 1) = 2;
+  matrix1(1, 0) = 3;
+  matrix1(1, 1) = 4;
+
+  matrix2(0, 0) = 2;
+  matrix2(0, 1) = 3;
+  matrix2(1, 0) = 4;
+  matrix2(1, 1) = 5;
+
+  check_matrix(0, 0) = 10.;
+  check_matrix(0, 1) = 13.;
+  check_matrix(1, 0) = 22.;
+  check_matrix(1, 1) = 29.;
+
+  S21Matrix matrix2_before = matrix2;
+  // matrix1.PrintMatrix();
+  // matrix1.PrintMatrix();
+  EXPECT_EQ(matrix1.GetRows(), 2);
+  EXPECT_EQ(matrix1.GetCols(), 2);
+
+  ASSERT_TRUE(matrix1 == check_matrix);
+  ASSERT_TRUE(matrix2 == matrix2_before);
 }
 
 TEST(DeterminantAndCo, Transpose) {
@@ -150,8 +151,6 @@ TEST(DeterminantAndCo, Transpose) {
   EXPECT_EQ(test1, test2);
 }
 
-// ошибка
-/*
 TEST(DeterminantAndCo, CalcComplements) {
   auto test1 = S21Matrix(3, 3);
   test1(0, 0) = 1;
@@ -177,7 +176,6 @@ TEST(DeterminantAndCo, CalcComplements) {
   EXPECT_EQ(test1, test2);
 }
 
-*/
 TEST(DeterminantAndCo, Determinant) {
   auto test1 = S21Matrix(3, 3);
   test1(0, 0) = 1;
@@ -225,7 +223,7 @@ TEST(Technical, SetCols) {
   test1.SetRows(1);
 }
 // ошибка
-/*
+
 TEST(DeterminantAndCo, InverseMatrix) {
   auto test1 = S21Matrix(3, 3);
   test1(0, 0) = 3;
@@ -250,7 +248,7 @@ TEST(DeterminantAndCo, InverseMatrix) {
   test2(2, 2) = -1.4;
   EXPECT_EQ(test2, test3);
 }
-*/
+
 // overloads
 
 TEST(Overloads, SumOperator) {
@@ -294,45 +292,45 @@ TEST(Overloads, MulNumberOperator) {
 }
 
 // ошибка
-/*
+
 TEST(Overloads, MulMatrixOperator) {
-  auto test1 = S21Matrix(3, 3);
-  auto test10 = S21Matrix(3, 3);
-  test1(0, 0) = 1;
-  test1(0, 1) = 2;
-  test1(0, 2) = 3;
-  test1(1, 0) = 4;
-  test1(1, 1) = 5;
-  test1(1, 2) = 6;
-  test1(2, 0) = 7;
-  test1(2, 1) = 8;
-  test1(2, 2) = 9;
-  test10(0, 0) = 1;
-  test10(0, 1) = 2;
-  test10(0, 2) = 3;
-  test10(1, 0) = 4;
-  test10(1, 1) = 5;
-  test10(1, 2) = 6;
-  test10(2, 0) = 7;
-  test10(2, 1) = 8;
-  test10(2, 2) = 9;
+  S21Matrix matrix1{2, 2};
+  EXPECT_EQ(matrix1.GetRows(), 2);
+  EXPECT_EQ(matrix1.GetCols(), 2);
 
-  auto test3 = S21Matrix(3, 3);
-  test3 = test1 * test10;
-  auto test2 = S21Matrix(3, 3);
-  test2(0, 0) = 30;
-  test2(0, 1) = 36;
-  test2(0, 2) = 42;
-  test2(1, 0) = 66;
-  test2(1, 1) = 81;
-  test2(1, 2) = 96;
-  test2(2, 0) = 102;
-  test2(2, 1) = 126;
-  test2(2, 2) = 150;
+  S21Matrix matrix2{2, 2};
+  EXPECT_EQ(matrix2.GetRows(), 2);
+  EXPECT_EQ(matrix2.GetCols(), 2);
 
-  EXPECT_EQ(test3, test2);
+  S21Matrix check_matrix{2, 2};
+  EXPECT_EQ(check_matrix.GetRows(), 2);
+  EXPECT_EQ(check_matrix.GetCols(), 2);
+
+  matrix1(0, 0) = 1;
+  matrix1(0, 1) = 2;
+  matrix1(1, 0) = 3;
+  matrix1(1, 1) = 4;
+
+  matrix2(0, 0) = 2;
+  matrix2(0, 1) = 3;
+  matrix2(1, 0) = 4;
+  matrix2(1, 1) = 5;
+
+  check_matrix(0, 0) = 10.;
+  check_matrix(0, 1) = 13.;
+  check_matrix(1, 0) = 22.;
+  check_matrix(1, 1) = 29.;
+
+  S21Matrix matrix2_before = matrix2;
+  matrix1 *= matrix2;
+
+  EXPECT_EQ(matrix1.GetRows(), 2);
+  EXPECT_EQ(matrix1.GetCols(), 2);
+
+  ASSERT_TRUE(matrix1 == check_matrix);
+  ASSERT_TRUE(matrix2 == matrix2_before);
 }
-*/
+
 TEST(Overloads, AdditionSumOperator) {
   auto test1 = S21Matrix(1, 1);
   test1(0, 0) = 1;
