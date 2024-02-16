@@ -34,13 +34,31 @@ bool S21Matrix::EqMatrix(const S21Matrix &other) const {
   if (rows_ != other.rows_ || cols_ != other.cols_) return false;
 
   for (int i = 0; i < GetSize(); i++) {
-    if (fabs(matrix_[i] - other.matrix_[i]) > 1.e-7) {
+    if (fabs(matrix_[i] - other.matrix_[i]) > 1e-5) {
       return false;
     }
   }
 
   return true;
 }
+
+/*
+bool S21Matrix::EqMatrix(const S21Matrix &other) const {
+  if (rows_ != other.rows_ || cols_ != other.cols_) {
+    return false;
+  }
+
+  for (int i = 0; i < rows_; ++i) {
+    for (int j = 0; j < cols_; ++j) {
+      if (std::abs(other(i, j) - (*this)(i, j)) > 1e-7) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+*/
 
 void S21Matrix::SumMatrix(const S21Matrix &other) {
   if (rows_ != other.rows_ || cols_ != other.cols_)
@@ -77,4 +95,17 @@ void S21Matrix::MulMatrix(const S21Matrix &other) {
     }
   }
   *this = std::move(result);
+}
+
+void S21Matrix::PrintMatrix() const {
+  std::cout << "Matrix " << rows_ << "x" << cols_ << ":\n";
+
+  for (int i = 0; i < rows_; ++i) {
+    for (int j = 0; j < cols_; ++j) {
+      // Используем std::setw для выравнивания элементов
+      std::cout << std::setw(3) << (*this)(i, j) << " ";
+    }
+    std::cout << '\n';
+  }
+  std::cout << std::endl;
 }

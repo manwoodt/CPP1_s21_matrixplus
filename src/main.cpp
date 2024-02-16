@@ -1,29 +1,28 @@
 #include <iomanip>
+#include <iostream>
 
 #include "s21_matrix.hpp"
 int main() {
-  S21Matrix test10(3, 3);
-  S21Matrix test1(3, 3);
-  test1(0, 0) = 1;
-  test1(0, 1) = 2;
-  test1(0, 2) = 3;
-  test1(1, 0) = 4;
-  test1(1, 1) = 5;
-  test1(1, 2) = 6;
-  test1(2, 0) = 7;
-  test1(2, 1) = 8;
-  test1(2, 2) = 9;
-  test10(0, 0) = 1;
-  test10(0, 1) = 2;
-  test10(0, 2) = 3;
-  test10(1, 0) = 4;
-  test10(1, 1) = 5;
-  test10(1, 2) = 6;
-  test10(2, 0) = 7;
-  test10(2, 1) = 8;
-  test10(2, 2) = 9;
+  S21Matrix matrix1(2, 2);
+  S21Matrix matrix2(2, 2);
 
-  test1 *= test10;
+  matrix1(0, 0) = 1;
+  matrix1(0, 1) = 2;
+  matrix1(1, 0) = 3;
+  matrix1(1, 1) = 4;
+
+  matrix2(0, 0) = 2;
+  matrix2(0, 1) = 3;
+  matrix2(1, 0) = 4;
+  matrix2(1, 1) = 5;
+  matrix1.MulMatrix(matrix2);
+
+  S21Matrix check_matrix(2, 2);
+  check_matrix(0, 0) = 10.;
+  check_matrix(0, 1) = 13.;
+  check_matrix(1, 0) = 22.;
+  check_matrix(1, 1) = 29.;
+  std::cout << (check_matrix == matrix1) << std::endl;
 
   /*
   std::cout << "res1 " << test1.EqMatrix(test2);
@@ -49,10 +48,11 @@ int main() {
   B.PrintMatrix();
   */
 
-  test1.PrintMatrix();
-  // test2.PrintMatrix();
-  // B.Transpose();
-  // B.PrintMatrix();
+  matrix1.PrintMatrix();
+  check_matrix.PrintMatrix();
+  //  test2.PrintMatrix();
+  //  B.Transpose();
+  //  B.PrintMatrix();
   return 0;
 }
 
@@ -72,7 +72,27 @@ int main() {
   EXPECT_TRUE(test1.EqMatrix(test3) == (test1 == test3));
 
 
-
+  S21Matrix test10(3, 3);
+  S21Matrix test1(3, 3);
+  test1(0, 0) = 1;
+  test1(0, 1) = 2;
+  test1(0, 2) = 3;
+  test1(1, 0) = 4;
+  test1(1, 1) = 5;
+  test1(1, 2) = 6;
+  test1(2, 0) = 7;
+  test1(2, 1) = 8;
+  test1(2, 2) = 9;
+  test10(0, 0) = 1;
+  test10(0, 1) = 2;
+  test10(0, 2) = 3;
+  test10(1, 0) = 4;
+  test10(1, 1) = 5;
+  test10(1, 2) = 6;
+  test10(2, 0) = 7;
+  test10(2, 1) = 8;
+  test10(2, 2) = 9;
+  test1.MulMatrix(test10);
 
     S21Matrix A(3, 3);
   S21Matrix B(3, 3);
@@ -123,19 +143,6 @@ B(0, 2) = 399999991639265;
 B(1, 0) = -40000000294291;
 B(1, 1) = -59999999675878;
 B(1, 2) = 69999999752287;*/
-
-void S21Matrix::PrintMatrix() const {
-  std::cout << "Matrix " << rows_ << "x" << cols_ << ":\n";
-
-  for (int i = 0; i < rows_; ++i) {
-    for (int j = 0; j < cols_; ++j) {
-      // Используем std::setw для выравнивания элементов
-      std::cout << std::setw(3) << (*this)(i, j) << " ";
-    }
-    std::cout << '\n';
-  }
-  std::cout << '\n';
-}
 
 /*
 void S21Matrix::PrintMatrix() const {

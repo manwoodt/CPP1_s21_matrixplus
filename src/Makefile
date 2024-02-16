@@ -1,7 +1,7 @@
 # CXX https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html
 G =g++ -std=c++17
 GCC =$(G) -Wall -Wextra -Werror -fsanitize=address  
-LIBS =-lgtest -lpthread -L/home/manwoodt/School21/c++/new/CPP1_s21_matrixplus-1/src  /home/manwoodt/School21/c++/new/CPP1_s21_matrixplus-1/src/s21_matrix_oop.a
+LIBS =-lgtest -lpthread 
 
 all: test clean
 
@@ -22,9 +22,9 @@ s21_matrix_oop.a:
 
 mytest: 
 	@echo --------------------Mytest-----------------------
-	$(GCC) -std=c++17 -o  matrix s21_*.cpp main.cpp -lm
+	$(GCC) -std=c++17 -o  matrix s21_*.cpp main.cpp -lm -g
 	@./matrix
-	@rm matrix
+	# @rm matrix
 
 gcov_report: clean
 	$(GCC) --coverage tests.cpp s21_*.cpp -o test $(LIBS)
