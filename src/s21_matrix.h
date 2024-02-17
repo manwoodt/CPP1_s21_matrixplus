@@ -3,8 +3,8 @@
 
 #include <math.h>
 
-#include <cstring>  // memcpy
-#include <iomanip>
+#include <cstring>   // memcpy
+#include <iomanip>   //setw
 #include <iostream>  // cout
 #include <stdexcept>
 #include <utility>  // swap

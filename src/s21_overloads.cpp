@@ -1,4 +1,4 @@
-#include "s21_matrix.hpp"
+#include "s21_matrix.h"
 
 double &S21Matrix::operator()(int row, int col) {
   if (row >= rows_ || col >= cols_ || row < 0 || col < 0)

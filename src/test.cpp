@@ -2,7 +2,7 @@
 
 #include <cstdio>
 
-#include "s21_matrix.hpp"
+#include "s21_matrix.h"
 
 TEST(Constructor, Default) {
   auto test = S21Matrix();
@@ -39,7 +39,6 @@ TEST(Calculation, EqMatrix) {
   EXPECT_TRUE(test1.EqMatrix(test2));
   EXPECT_TRUE(test1.EqMatrix(test2) == (test1 == test2));
   test2(1, 1) = 1;
-  //  ошибка
   EXPECT_FALSE(test1.EqMatrix(test2));
   EXPECT_TRUE(test1.EqMatrix(test2) == (test1 == test2));
   auto test3 = S21Matrix(5, 5);
@@ -122,8 +121,6 @@ TEST(Calculation, MulMatrix) {
 
   matrix1.MulMatrix(matrix2);
   S21Matrix matrix2_before = matrix2;
-  // matrix1.PrintMatrix();
-  // matrix1.PrintMatrix();
   EXPECT_EQ(matrix1.GetRows(), 2);
   EXPECT_EQ(matrix1.GetCols(), 2);
 
@@ -223,7 +220,6 @@ TEST(Technical, SetCols) {
   EXPECT_EQ(test1.GetCols(), 5);
   test1.SetRows(1);
 }
-// ошибка
 
 TEST(DeterminantAndCo, InverseMatrix) {
   auto test1 = S21Matrix(3, 3);
@@ -328,7 +324,7 @@ TEST(Overloads, MulMatrixOperator) {
   EXPECT_EQ(matrix1.GetRows(), 2);
   EXPECT_EQ(matrix1.GetCols(), 2);
 
-  // ASSERT_TRUE(matrix1 == check_matrix);
+  ASSERT_TRUE(matrix1 == check_matrix);
   ASSERT_TRUE(matrix2 == matrix2_before);
 }
 
@@ -406,62 +402,10 @@ TEST(Overloads, AdditionMulMatrixOperator) {
   test2(2, 1) = 126;
   test2(2, 2) = 150;
 
-  // EXPECT_EQ(test1, test2);
+  EXPECT_EQ(test1, test2);
 }
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
-
-// #include <iostream>
-
-// #include "s21_matrix_oop.h"
-
-// int main() {
-// auto test1 = S21Matrix(3, 3);
-// test1(0, 0) = 1;
-// test1(0, 1) = 2;
-// test1(0, 2) = 3;
-// test1(1, 0) = 3;
-// test1(1, 1) = 2;
-// test1(1, 2) = 1;
-// test1(2, 0) = 7;
-// test1(2, 1) = 5;
-// test1(2, 2) = 2;
-// test1 = test1.CalcComplements();
-// auto test2 = S21Matrix(3, 3);
-// test2(0, 0) = -1;
-// test2(0, 1) = 1;
-// test2(0, 2) = 1;
-// test2(1, 0) = 11;
-// test2(1, 1) = -19;
-// test2(1, 2) = 9;
-// test2(2, 0) = -4;
-// test2(2, 1) = 8;
-// test2(2, 2) = -4;
-//   auto test1 = S21Matrix(3, 3);
-//   test1(0, 0) = 1;
-//   test1(0, 1) = 2;
-//   test1(0, 2) = 3;
-//   test1(1, 0) = 0;
-//   test1(1, 1) = 4;
-//   test1(1, 2) = 2;
-//   test1(2, 0) = 5;
-//   test1(2, 1) = 2;
-//   test1(2, 2) = 1;
-//   test1 = test1.CalcComplements();
-//   auto test2 = S21Matrix(3, 3);
-//   test2(0, 0) = 0;
-//   test2(0, 1) = 10;
-//   test2(0, 2) = -20;
-//   test2(1, 0) = 4;
-//   test2(1, 1) = -14;
-//   test2(1, 2) = 8;
-//   test2(2, 0) = -8;
-//   test2(2, 1) = -2;
-//   test2(2, 2) = 4;
-//   test1.PrintMatrix();
-//   test2.PrintMatrix();
-//   return 0;
-// }

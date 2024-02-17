@@ -1,21 +1,20 @@
 // & - lvalue, && - rvalue
-#include "s21_matrix.hpp"
+#include "s21_matrix.h"
 
-S21Matrix::S21Matrix() : rows_(0), cols_(0), matrix_(nullptr){};
+S21Matrix::S21Matrix() : rows_(0), cols_(0), matrix_(nullptr) {}
 
 // Параметризированный конструктор с количеством строк и столбцов
 S21Matrix::S21Matrix(int rows, int cols) : rows_(rows), cols_(cols) {
   // Выделение памяти для матрицы
   matrix_ = new double[rows_ * cols_];
-};
+}
 
 // конструктор копирования
 S21Matrix::S21Matrix(const S21Matrix &other)
     : rows_(other.rows_),
       cols_(other.cols_),
       matrix_(new double[rows_ * cols_]) {
-  std::memcpy(matrix_, other.matrix_,
-              other.rows_ * other.cols_ * sizeof(double));
+  std::memcpy(matrix_, other.matrix_, rows_ * cols_ * sizeof(double));
 }
 // конструктор перемещения
 S21Matrix::S21Matrix(S21Matrix &&other) noexcept
@@ -48,6 +47,7 @@ S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
   }
   return *this;
 }
+
 // Оператор присваивания перемещения
 S21Matrix &S21Matrix::operator=(S21Matrix &&other) noexcept {
   if (this != &other) {

@@ -1,4 +1,4 @@
-#include "s21_matrix.hpp"
+#include "s21_matrix.h"
 
 int S21Matrix::GetRows() const { return rows_; }
 
@@ -41,24 +41,6 @@ bool S21Matrix::EqMatrix(const S21Matrix &other) const {
 
   return true;
 }
-
-/*
-bool S21Matrix::EqMatrix(const S21Matrix &other) const {
-  if (rows_ != other.rows_ || cols_ != other.cols_) {
-    return false;
-  }
-
-  for (int i = 0; i < rows_; ++i) {
-    for (int j = 0; j < cols_; ++j) {
-      if (std::abs(other(i, j) - (*this)(i, j)) > 1e-7) {
-        return false;
-      }
-    }
-  }
-
-  return true;
-}
-*/
 
 void S21Matrix::SumMatrix(const S21Matrix &other) {
   if (rows_ != other.rows_ || cols_ != other.cols_)

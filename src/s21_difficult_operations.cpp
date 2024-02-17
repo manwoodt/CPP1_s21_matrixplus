@@ -1,4 +1,4 @@
-#include "s21_matrix.hpp"
+#include "s21_matrix.h"
 
 S21Matrix S21Matrix::Transpose() const {
   S21Matrix result(cols_, rows_);
@@ -42,7 +42,6 @@ double S21Matrix::Determinant() const {
   }
 
   if (rows_ == 1) return matrix_[0];
-  // if (rows_ == 2) return matrix_[0] * matrix_[4] - matrix_[1] * matrix_[3];
   double det = 0;
   int sign = 1;
 
