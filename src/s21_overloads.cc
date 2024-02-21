@@ -36,6 +36,11 @@ S21Matrix S21Matrix::operator*(const double num) const {
   return result;
 }
 
+S21Matrix operator*(double number, const S21Matrix &matrix) noexcept {
+  S21Matrix result = matrix * number;
+  return result;
+}
+
 S21Matrix &S21Matrix::operator+=(const S21Matrix &other) {
   SumMatrix(other);
   return *this;
