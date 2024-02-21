@@ -6,7 +6,7 @@ S21Matrix::S21Matrix() : rows_(0), cols_(0), matrix_(nullptr) {}
 // Параметризированный конструктор с количеством строк и столбцов
 S21Matrix::S21Matrix(int rows, int cols) : rows_(rows), cols_(cols) {
   // Выделение памяти для матрицы
-  matrix_ = new double[rows_ * cols_];
+  matrix_ = new double[rows_ * cols_]{};
 }
 
 // конструктор копирования

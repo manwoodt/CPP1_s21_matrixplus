@@ -1,40 +1,39 @@
 CC=g++ -std=c++17 
 GCC =$(CC) -Wall -Wextra -Werror -g
 CHECKFLAGS=-lgtest
-REPORTDIR=gcov_report
 GCOV=--coverage -pthread
 OS = $(shell uname)
 
 all: test clean
 
 clean:
-	rm -rf *.o *.a *.so *.gcda *.gcno *.gch rep.info *.html *.css matrix_test report *.txt *.dSYM ./$(REPORTDIR)
+	rm -rf *.o *.a *.so *.gcda *.gcno *.gch rep.info *.html *.css matrix_test report *.txt *.dSYM 
 
 s21_matrix.a:
-	$(GCC) -c s21_*.cpp -o matrix.o
+	$(GCC) -c s21_*.cc -o matrix.o
 	ar rcs matrix.a matrix.o
 
 test: clean
-	$(GCC) $(GCOV) -c s21_*.cpp 
-	$(GCC) -c test.cpp $(CHECKFLAGS)
-	$(GCC) $(GCOV) -o matrix_test test.o s21_*.o $(CHECKFLAGS)
+	$(GCC) $(GCOV) -c s21_*.cc
+	$(GCC) -c test.cc $(CHECKFLAGS)
+	$(GCC) $(GCOV) -o matrix_test test.o s21_*.o $(CHECKFLAGS) -g
 	./matrix_test
 
 mytest: 
 	@echo --------------------MYTEST-----------------------
-	$(GCC) -std=c++17 -o  matrix s21_*.cpp main.cpp -lm -g
+	$(GCC) -std=c++17 -o  matrix s21_*.cc main.cc -lm -g
 	@./matrix
 	@rm matrix
 
 cppcheck:
 	@echo -------------------CPPCHECK------------------------
-	cppcheck --enable=all --suppress=missingIncludeSystem . *.cpp
+	cppcheck --enable=all --suppress=missingIncludeSystem . *.cc
 
 clang:
 	@echo -------------------CLANG_FORMAT------------------------
 	@ cp ../../materials/linters/.clang-format .
-	#clang-format -n -style=Google *.cpp *.h
-	clang-format -i -style=Google *.cpp *.h
+	#clang-format -n -style=Google *.cc *.h
+	clang-format -i -style=Google *.cc *.h
 	@rm clang-format
 
 
@@ -46,6 +45,9 @@ else
 endif
 
 gcov_report: test
-	lcov --ignore-errors mismatch -t "test" -o test.info --no-external -c -d .
+	lcov  -t "test" -o test.info --no-external -c -d .
 	genhtml -o report/ test.info
 	open ./report/index.html
+	rm -rf test *.o *.a *gcda *gcno *info
+
+

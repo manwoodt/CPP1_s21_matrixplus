@@ -10,7 +10,7 @@ TEST(Constructor, Default) {
   EXPECT_EQ(test.GetCols(), 0);
 }
 
-TEST(Constructor, By2Args) {
+TEST(Constructor, WithArgs) {
   auto test = S21Matrix(3, 3);
   EXPECT_EQ(test.GetRows(), 3);
   EXPECT_EQ(test.GetCols(), 3);
@@ -89,7 +89,6 @@ TEST(Calculation, Find_minor) {
 
   EXPECT_EQ(test3, test2);
 }
-// ошибка
 
 TEST(Calculation, MulMatrix) {
   S21Matrix matrix1{2, 2};
@@ -288,8 +287,6 @@ TEST(Overloads, MulNumberOperator) {
   EXPECT_EQ(test2(0, 0), 15);
 }
 
-// ошибка
-
 TEST(Overloads, MulMatrixOperator) {
   S21Matrix matrix1{2, 2};
   EXPECT_EQ(matrix1.GetRows(), 2);
@@ -367,7 +364,6 @@ TEST(Overloads, AdditionMulNumberOperator) {
   EXPECT_EQ(test1(0, 0), 15);
 }
 
-// ошибка
 TEST(Overloads, AdditionMulMatrixOperator) {
   auto test1 = S21Matrix(3, 3);
   auto test10 = S21Matrix(3, 3);

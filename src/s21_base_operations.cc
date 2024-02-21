@@ -34,7 +34,7 @@ bool S21Matrix::EqMatrix(const S21Matrix &other) const {
   if (rows_ != other.rows_ || cols_ != other.cols_) return false;
 
   for (int i = 0; i < GetSize(); i++) {
-    if (fabs(matrix_[i] - other.matrix_[i]) > 1e-5) {
+    if (fabs(matrix_[i] - other.matrix_[i]) > 1e-7) {
       return false;
     }
   }
