@@ -2,6 +2,27 @@
 
 #include "s21_matrix.h"
 int main() {
+  auto A = S21Matrix(3, 3);
+  for (int i = 0; i < A.GetRows(); i++) {
+    for (int j = 0; j < A.GetCols(); j++) {
+      A(i, j) = A.GetRows() * i + j + 1;
+    }
+  }
+  A.PrintMatrix();
+  A = A.Transpose();
+  auto B = S21Matrix(3, 3);
+  B(0, 0) = 1;
+  B(0, 1) = 4;
+  B(0, 2) = 7;
+  B(1, 0) = 2;
+  B(1, 1) = 5;
+  B(1, 2) = 8;
+  B(2, 0) = 3;
+  B(2, 1) = 6;
+  B(2, 2) = 9;
+  A.PrintMatrix();
+  B.PrintMatrix();
+  /*
   S21Matrix matrix1(2, 2);
   S21Matrix matrix2(2, 2);
   matrix1(0, 0) = 1;
@@ -88,5 +109,6 @@ int main() {
   //  test2.PrintMatrix();
   //  B.Transpose();
   //  B.PrintMatrix();
+  */
   return 0;
 }

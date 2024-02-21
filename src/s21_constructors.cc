@@ -24,7 +24,6 @@ S21Matrix::S21Matrix(S21Matrix &&other) noexcept
   other.cols_ = 0;
 }
 
-// почему возвращает указатель,  если должен ссылку
 // Оператор присваивания копированием
 S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
   /*
